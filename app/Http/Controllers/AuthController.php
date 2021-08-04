@@ -16,20 +16,27 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','signup']]);
+        $this->middleware('JWT', ['except' => ['login','signup']]);
     }
+
+    //$this->middleware('auth:api', ['except' => ['login','signup']]);
 
     /**
      * Get a JWT via given credentials.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
+        $validate = $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Email or Password is in correct'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -97,7 +104,10 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user_id' => auth()->user()->id,
+            'name' => auth()->user()->name,
+            'email' => auth()->user()->email,
         ]);
     }
 }
