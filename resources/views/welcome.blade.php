@@ -60,8 +60,8 @@
         <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Forms</h6>
-            <router-link class="collapse-item" to="form_basics.html">All suplier</router-link>
-            <router-link class="collapse-item" to="form_advanceds.html">Add suplier</router-link>
+            <router-link class="collapse-item" to="/all-supplier">All suplier</router-link>
+            <router-link class="collapse-item" to="/store-supplier">Add suplier</router-link>
           </div>
         </div>
       </li>

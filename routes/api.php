@@ -18,3 +18,4 @@ Route::group([
 });
 
 Route::ApiResource('/employee', 'App\Http\Controllers\Api\EmployeeController');
+Route::ApiResource('/supplier', 'App\Http\Controllers\Api\SupplierController');
