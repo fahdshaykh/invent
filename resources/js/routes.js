@@ -14,6 +14,11 @@ let allsupplier = require('./components/supplier/index.vue').default;
 let storesupplier = require('./components/supplier/create.vue').default;
 let editsupplier = require('./components/supplier/edit.vue').default;
 
+//category
+let allcategory = require('./components/category/index.vue').default;
+let storecategory = require('./components/category/create.vue').default;
+let editcategory = require('./components/category/edit.vue').default;
+
 
 export const routes = [
     { path: '/', component: login, name: '/' },
@@ -28,5 +33,9 @@ export const routes = [
 
     { path: '/all-supplier', component: allsupplier, name:'all-supplier' },
     { path: '/store-supplier', component: storesupplier, name:'store-supplier' },
-    { path: '/edit-supplier/:id', component: editsupplier, name:'edit-supplier' }
+    { path: '/edit-supplier/:id', component: editsupplier, name:'edit-supplier' },
+
+    { path: '/all-category', component: allcategory, name:'all-category' },
+    { path: '/store-category', component: storecategory, name:'store-category' },
+    { path: '/edit-category/:id', component: editcategory, name:'edit-category' }
 ]
