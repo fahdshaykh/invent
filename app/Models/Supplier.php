@@ -17,4 +17,9 @@ class Supplier extends Model
         'photo',
         'shop_name',
     ];
+
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 mt-2">
-                    <router-link to="/add-employee" class="btn btn-primary">Add Employee</router-link>
+                    <router-link to="/store-product" class="btn btn-primary">Add product</router-link>
                 </div>
 
                 <div class="col-md-6 mt-2">
@@ -25,23 +25,27 @@
                     <thead class="thead-light">
                       <tr>
                         <th>Name</th>
+                        <th>Code</th>
+                        <th>category</th>
                         <th>Photo</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Joining Date</th>
+                        <th>Buyinig Price</th>
+                        <th>Selling Price</th>
+                        <th>Root</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="employee in filtersearch" :key="employee.id">
-                        <td>{{ employee.name }}</td>
-                        <td><img :src="employee.photo" alt="" id="emp_photo"></td>
-                        <td>{{ employee.email }}</td>
-                        <td>{{ employee.phone }}</td>
-                        <td>{{ employee.joining_date }}</td>
+                      <tr v-for="product in filtersearch" :key="product.id">
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.product_code }}</td>
+                        <td>{{ product.categories.category_name }}</td>
+                        <td><img :src="product.image" alt="" id="emp_photo"></td>
+                        <td>{{ product.buying_price }}</td>
+                        <td>{{ product.selling_price }}</td>
+                        <td>{{ product.root }}</td>
                         <td>
-                            <router-link :to="{name: 'edit-employee', params: {id:employee.id}}" class="btn btn-sm btn-primary">Edit</router-link>
-                            <a @click="deleteEmployee(employee.id)" class="btn btn-sm btn-danger">Delete</a>
+                            <router-link :to="{name: 'edit-product', params: {id:product.id}}" class="btn btn-sm btn-primary">Edit</router-link>
+                            <a @click="deleteProduct(product.id)" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                       </tr>
                     </tbody>
@@ -61,28 +65,28 @@ export default {
         if(!User.loggedIn()){
             this.$router.push({name: '/'})
         }
-        this.allEmployee();
+        this.allProduct();
     },
     data(){
         return {
-            employees: [],
+            products: [],
             searchTerm: ''
         }
     },
     computed: {
         filtersearch(){
-            return this.employees.filter(employee => {
-                return employee.phone.match(this.searchTerm)
+            return this.products.filter(product => {
+                return product.product_name.match(this.searchTerm)
             });
         }
     },
     methods: {
-        allEmployee(){
-            axios.get('/api/employee')
-            .then(({data}) => (this.employees = data))
+        allProduct(){
+            axios.get('/api/product')
+            .then(({data}) => (this.products = data))
             .catch()
         },
-        deleteEmployee(id){
+        deleteProduct(id){
             Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -93,14 +97,14 @@ export default {
             confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete('/api/employee/'+id)
+                axios.delete('/api/product/'+id)
                 .then(() => {
-                    this.employees = this.employees.filter(employee => {
-                        return employee.id !=id;
+                    this.products = this.products.filter(product => {
+                        return product.id !=id;
                     })
                 })
                 .catch(() => {
-                    this.$router.push({name: 'all-employee'})
+                    this.$router.push({name: 'all-product'})
                 })
 
                 Swal.fire(

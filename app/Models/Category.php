@@ -13,4 +13,9 @@ class Category extends Model
         'category_name',
         'category_note'
     ];
+
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

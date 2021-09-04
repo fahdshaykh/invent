@@ -10,13 +10,25 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'address',
-        'salary',
-        'nid',
-        'joining_date',
-        'photo',
+        'category_id',
+        'product_name',
+        'product_code',
+        'root',
+        'buying_price',
+        'selling_price',
+        'supplier_id',
+        'buying_date',
+        'image',
+        'product_quantity',
     ];
+
+    public function categories()
+    {
+        return $this->belongsTo(Category::class, 'category_id','id');
+    }
+
+    public function suppliers()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }

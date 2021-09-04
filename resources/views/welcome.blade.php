@@ -80,10 +80,18 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ui-colors.html">
-          <i class="fas fa-fw fa-palette"></i>
-          <span>UI Colors</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable4" aria-expanded="true"
+          aria-controls="collapseTable4">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Product</span>
         </a>
+        <div id="collapseTable4" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Product</h6>
+            <router-link class="collapse-item" to="/all-product">All Product</router-link>
+            <router-link class="collapse-item" to="/store-product">Add Product</router-link>
+          </div>
+        </div>
       </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
