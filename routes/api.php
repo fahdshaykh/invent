@@ -22,3 +22,8 @@ Route::ApiResource('/supplier', 'App\Http\Controllers\Api\SupplierController');
 Route::ApiResource('/category', 'App\Http\Controllers\Api\CategoryController');
 Route::ApiResource('/product', 'App\Http\Controllers\Api\ProductController');
 Route::ApiResource('/expense', 'App\Http\Controllers\Api\ExpenseController');
+Route::get('/salary', 'App\Http\Controllers\Api\SalaryController@index');
+Route::post('/salary/paid/{id}', 'App\Http\Controllers\Api\SalaryController@paid');
+Route::post('/view/salary/{month}', 'App\Http\Controllers\Api\SalaryController@view');
+Route::get('/edit/salary/{id}', 'App\Http\Controllers\Api\SalaryController@edit');
+Route::post('/update/salary/{id}', 'App\Http\Controllers\Api\SalaryController@update');

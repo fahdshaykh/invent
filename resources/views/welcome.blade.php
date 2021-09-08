@@ -107,6 +107,20 @@
           </div>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable6" aria-expanded="true"
+          aria-controls="collapseTable6">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Salary</span>
+        </a>
+        <div id="collapseTable6" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Salary</h6>
+            <router-link class="collapse-item" to="/employee-list">Employee List</router-link>
+            <router-link class="collapse-item" to="/salary">All Salary</router-link>
+          </div>
+        </div>
+      </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
         Examples

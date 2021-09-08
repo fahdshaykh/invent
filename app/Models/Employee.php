@@ -20,4 +20,9 @@ class Employee extends Model
         'photo',
     ];
 
+    public function salaries()
+    {
+        return $this->belongsTo(Salary::class);
+    }
+
 }
