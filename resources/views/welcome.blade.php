@@ -122,6 +122,20 @@
         </div>
       </li>
       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable7" aria-expanded="true"
+          aria-controls="collapseTable7">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Customer</span>
+        </a>
+        <div id="collapseTable7" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Customer</h6>
+            <router-link class="collapse-item" to="/all-customer">All customer</router-link>
+            <router-link class="collapse-item" to="/store-customer">Add customer</router-link>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
         <router-link class="nav-link" to="/stock">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Stock</span>
