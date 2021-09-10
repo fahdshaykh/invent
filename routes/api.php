@@ -27,3 +27,4 @@ Route::post('/salary/paid/{id}', 'App\Http\Controllers\Api\SalaryController@paid
 Route::post('/view/salary/{month}', 'App\Http\Controllers\Api\SalaryController@view');
 Route::get('/edit/salary/{id}', 'App\Http\Controllers\Api\SalaryController@edit');
 Route::post('/update/salary/{id}', 'App\Http\Controllers\Api\SalaryController@update');
+Route::post('/stock-update/{id}', 'App\Http\Controllers\Api\ProductController@stockUpdate');

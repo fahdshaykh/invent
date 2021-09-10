@@ -188,4 +188,19 @@ class ProductController extends Controller
             DB::table('products')->where('id', $id)->delete();
         }
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function stockUpdate(Request $request, $id)
+    {
+        $data = $request->validate([
+            'product_quantity' => 'required',
+        ]);
+
+        $product = Product::where('id', $id)->update($data);
+    }
 }
