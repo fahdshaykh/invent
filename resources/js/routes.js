@@ -45,6 +45,8 @@ let allcustomer = require('./components/customer/index.vue').default;
 let storecustomer = require('./components/customer/create.vue').default;
 let editcustomer = require('./components/customer/edit.vue').default;
 
+//point of sale
+let pos = require('./components/pos/pos.vue').default;
 
 export const routes = [
     { path: '/', component: login, name: '/' },
@@ -85,4 +87,6 @@ export const routes = [
     { path: '/all-customer', component: allcustomer, name:'all-customer' },
     { path: '/store-customer', component: storecustomer, name:'store-customer' },
     { path: '/edit-customer/:id', component: editcustomer, name:'edit-customer' },
+
+    { path: '/pos', component: pos, name:'pos' },
 ]

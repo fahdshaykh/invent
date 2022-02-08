@@ -33,6 +33,11 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></router-link>
       </li>
+      <li class="nav-item">
+        <router-link class="nav-link" to="/pos">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>POS</span></router-link>
+      </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
         Features
@@ -389,13 +394,6 @@
   <script src="{{asset('backend/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
   <script src="{{asset('backend/js/ruang-admin.min.js')}}"></script>
 
-  {{-- <script>
-      let token = localStorage.getItem('token');
-      if (toke) {
-          $("#sidebar").css("display", "");
-          $("#topbar").css("display", "");
-      }
-  </script> --}}
 </body>
 
 </html>

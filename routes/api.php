@@ -29,3 +29,4 @@ Route::post('/view/salary/{month}', 'App\Http\Controllers\Api\SalaryController@v
 Route::get('/edit/salary/{id}', 'App\Http\Controllers\Api\SalaryController@edit');
 Route::post('/update/salary/{id}', 'App\Http\Controllers\Api\SalaryController@update');
 Route::post('/stock-update/{id}', 'App\Http\Controllers\Api\ProductController@stockUpdate');
+Route::get('getting/product/{id}', 'App\Http\Controllers\Api\PosController@subProducts');
