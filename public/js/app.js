@@ -4423,13 +4423,14 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     this.allProduct();
+    this.allCategory();
     this.allCustomer();
   },
   data: function data() {
     return {
       products: [],
       categories: '',
-      getProducts: [],
+      getproducts: [],
       customers: [],
       searchTerm: ''
     };
@@ -4441,39 +4442,46 @@ __webpack_require__.r(__webpack_exports__);
       return this.products.filter(function (product) {
         return product.product_name.match(_this.searchTerm);
       });
+    },
+    getfiltersearch: function getfiltersearch() {
+      var _this2 = this;
+
+      return this.getproducts.filter(function (product) {
+        return getproduct.product_name.match(_this2.searchTerm);
+      });
     }
   },
   methods: {
     allProduct: function allProduct() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get('/api/product').then(function (_ref) {
         var data = _ref.data;
-        return _this2.products = data;
+        return _this3.products = data;
       })["catch"]();
     },
     allCategory: function allCategory() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get('/api/category').then(function (_ref2) {
         var data = _ref2.data;
-        return _this3.categories = data;
+        return _this4.categories = data;
       })["catch"]();
     },
     subProduct: function subProduct(id) {
-      var _this4 = this;
+      var _this5 = this;
 
-      axios.get('/api/getting/product' + id).then(function (_ref3) {
+      axios.get('/api/getting/product/' + id).then(function (_ref3) {
         var data = _ref3.data;
-        return _this4.getProducts = data;
+        return _this5.getproducts = data;
       })["catch"]();
     },
     allCustomer: function allCustomer() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get('/api/customer').then(function (_ref4) {
         var data = _ref4.data;
-        return _this5.customers = data;
+        return _this6.customers = data;
       })["catch"]();
     }
   }
@@ -56416,7 +56424,64 @@ var render = function() {
             _c("div", { staticClass: "card mb-4" }, [
               _vm._m(4),
               _vm._v(" "),
-              _vm._m(5),
+              _c("nav", [
+                _c(
+                  "div",
+                  {
+                    staticClass: "nav nav-tabs",
+                    attrs: { id: "nav-tab", role: "tablist" }
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link active",
+                        attrs: {
+                          id: "nav-home-tab",
+                          "data-toggle": "tab",
+                          href: "#nav-home",
+                          role: "tab",
+                          "aria-controls": "nav-home",
+                          "aria-selected": "true"
+                        }
+                      },
+                      [_vm._v("Home")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.categories, function(category) {
+                      return _c("li", { key: category.id }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "nav-link",
+                            attrs: {
+                              id: "nav-profile-tab",
+                              "data-toggle": "tab",
+                              href: "#nav-profile",
+                              role: "tab",
+                              "aria-controls": "nav-profile",
+                              "aria-selected": "false"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.subProduct(category.id)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n      " +
+                                _vm._s(category.category_name) +
+                                "\n    "
+                            )
+                          ]
+                        )
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "div",
@@ -56539,7 +56604,101 @@ var render = function() {
                         "aria-labelledby": "nav-profile-tab"
                       }
                     },
-                    [_vm._v("proooooooooo")]
+                    [
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.searchTerm,
+                                expression: "searchTerm"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            staticStyle: { width: "70%" },
+                            attrs: {
+                              type: "text",
+                              id: "",
+                              placeholder: "Enter Phone to search"
+                            },
+                            domProps: { value: _vm.searchTerm },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.searchTerm = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "row" },
+                          _vm._l(_vm.getfiltersearch, function(getproduct) {
+                            return _c(
+                              "div",
+                              {
+                                key: getproduct.id,
+                                staticClass: "col-md-3 col-lg-3 col-sm-6"
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "card",
+                                    staticStyle: { width: "8.5rem" }
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass: "card-img-top",
+                                      attrs: {
+                                        id: "emp_photo",
+                                        src: getproduct.image,
+                                        alt: "Card image cap"
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "card-body" }, [
+                                      _c("h5", { staticClass: "card-title" }, [
+                                        _vm._v(_vm._s(getproduct.product_name))
+                                      ]),
+                                      _vm._v(" "),
+                                      getproduct.product_quantity >= 1
+                                        ? _c(
+                                            "span",
+                                            {
+                                              staticClass: "badge badge-success"
+                                            },
+                                            [
+                                              _vm._v(
+                                                "Available " +
+                                                  _vm._s(
+                                                    getproduct.product_quantity
+                                                  )
+                                              )
+                                            ]
+                                          )
+                                        : _c(
+                                            "span",
+                                            {
+                                              staticClass: "badge badge-danger"
+                                            },
+                                            [_vm._v("Stock-Out")]
+                                          )
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ])
+                    ]
                   )
                 ]
               )
@@ -56743,53 +56902,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("nav", [
-      _c(
-        "div",
-        {
-          staticClass: "nav nav-tabs",
-          attrs: { id: "nav-tab", role: "tablist" }
-        },
-        [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link active",
-              attrs: {
-                id: "nav-home-tab",
-                "data-toggle": "tab",
-                href: "#nav-home",
-                role: "tab",
-                "aria-controls": "nav-home",
-                "aria-selected": "true"
-              }
-            },
-            [_vm._v("Home")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: {
-                id: "nav-profile-tab",
-                "data-toggle": "tab",
-                href: "#nav-profile",
-                role: "tab",
-                "aria-controls": "nav-profile",
-                "aria-selected": "false"
-              }
-            },
-            [_vm._v("Profile")]
-          )
-        ]
-      )
-    ])
   }
 ]
 render._withStripped = true
