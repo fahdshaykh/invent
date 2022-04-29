@@ -132,33 +132,61 @@
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+    <li v-for="category in categories" :key="category.id">
+    <a @click="subProduct(category.id)" class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+      {{ category.category_name }}
+    </a>
+    </li>
+  
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
       <div class="card-body">
-                    <div class="col-md-12">
-                        <input type="text" v-model="searchTerm" id="" class="form-control" placeholder="Enter Phone to search" style="width:70%">
-                    </div>
+          <div class="col-md-12">
+              <input type="text" v-model="searchTerm" id="" class="form-control" placeholder="Enter Phone to search" style="width:70%">
+          </div>
 
-                    <div class="row">
-                        <div class="col-md-3 col-lg-3 col-sm-6" v-for="product in filtersearch" :key="product.id">
-                            <div class="card" style="width: 8.5rem;">
-                                <img class="card-img-top" id="emp_photo" :src="product.image" alt="Card image cap">
-                                <div class="card-body">
+          <div class="row">
+              <div class="col-md-3 col-lg-3 col-sm-6" v-for="product in filtersearch" :key="product.id">
+                  <div class="card" style="width: 8.5rem;">
+                      <img class="card-img-top" id="emp_photo" :src="product.image" alt="Card image cap">
+                      <div class="card-body">
 
-                                    <h5 class="card-title">{{ product.product_name }}</h5>
-                                    <span v-if="product.product_quantity >= 1" class="badge badge-success">Available {{product.product_quantity}}</span>
+                          <h5 class="card-title">{{ product.product_name }}</h5>
+                          <span v-if="product.product_quantity >= 1" class="badge badge-success">Available {{product.product_quantity}}</span>
 
-                                    <span v-else class="badge badge-danger">Stock-Out</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                          <span v-else class="badge badge-danger">Stock-Out</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">proooooooooo</div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    
+    <div class="card-body">
+          <div class="col-md-12">
+              <input type="text" v-model="searchTerm" id="" class="form-control" placeholder="Enter Phone to search" style="width:70%">
+          </div>
+
+          <div class="row">
+              <div class="col-md-3 col-lg-3 col-sm-6" v-for="getproduct in getfiltersearch" :key="getproduct.id">
+                  <div class="card" style="width: 8.5rem;">
+                      <img class="card-img-top" id="emp_photo" :src="getproduct.image" alt="Card image cap">
+                      <div class="card-body">
+
+                          <h5 class="card-title">{{ getproduct.product_name }}</h5>
+                          <span v-if="getproduct.product_quantity >= 1" class="badge badge-success">Available {{getproduct.product_quantity}}</span>
+
+                          <span v-else class="badge badge-danger">Stock-Out</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+  </div>
 </div>
 
 
@@ -184,13 +212,14 @@ export default {
             this.$router.push({name: '/'})
         }
         this.allProduct();
+        this.allCategory();
         this.allCustomer();
     },
     data(){
         return {
             products: [],
             categories:'',
-            getProducts: [],
+            getproducts: [],
             customers: [],
             searchTerm: ''
         }
@@ -199,6 +228,11 @@ export default {
         filtersearch(){
             return this.products.filter(product => {
                 return product.product_name.match(this.searchTerm)
+            });
+        },
+        getfiltersearch(){
+            return this.getproducts.filter(product => {
+                return getproduct.product_name.match(this.searchTerm)
             });
         }
     },
@@ -214,8 +248,8 @@ export default {
             .catch()
         },
         subProduct(id){
-            axios.get('/api/getting/product'+id)
-            .then(({data}) => (this.getProducts = data))
+            axios.get('/api/getting/product/'+id)
+            .then(({data}) => (this.getproducts = data))
             .catch()
         },
         allCustomer(){
