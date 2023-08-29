@@ -4414,6 +4414,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
     if (!User.loggedIn()) {
@@ -4446,7 +4448,7 @@ __webpack_require__.r(__webpack_exports__);
     getfiltersearch: function getfiltersearch() {
       var _this2 = this;
 
-      return this.getproducts.filter(function (product) {
+      return this.getproducts.filter(function (getproduct) {
         return getproduct.product_name.match(_this2.searchTerm);
       });
     }
@@ -56248,12 +56250,36 @@ var render = function() {
         _c("div", { staticClass: "row mb-3" }, [
           _c("div", { staticClass: "col-xl-5 col-lg-5" }, [
             _c("div", { staticClass: "card mb-4" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                },
+                [
+                  _c(
+                    "h6",
+                    { staticClass: "m-0 font-weight-bold text-primary" },
+                    [_vm._v("Monthly Recap Report")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    { staticClass: "btn btn-sm btn-info" },
+                    [
+                      _c("font", { attrs: { color: "#ffffff" } }, [
+                        _vm._v("Add Customer")
+                      ])
+                    ],
+                    1
+                  )
+                ]
+              ),
+              _vm._v(" "),
               _vm._m(1),
               _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
               _c("div", { staticClass: "card-footer" }, [
-                _vm._m(3),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
@@ -56422,44 +56448,32 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-xl-7 col-lg-7" }, [
             _c("div", { staticClass: "card mb-4" }, [
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
-              _c("nav", [
-                _c(
-                  "div",
-                  {
-                    staticClass: "nav nav-tabs",
-                    attrs: { id: "nav-tab", role: "tablist" }
-                  },
-                  [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nav-link active",
-                        attrs: {
-                          id: "nav-home-tab",
-                          "data-toggle": "tab",
-                          href: "#nav-home",
-                          role: "tab",
-                          "aria-controls": "nav-home",
-                          "aria-selected": "true"
-                        }
-                      },
-                      [_vm._v("Home")]
-                    ),
-                    _vm._v(" "),
-                    _vm._l(_vm.categories, function(category) {
-                      return _c("li", { key: category.id }, [
+              _c(
+                "ul",
+                {
+                  staticClass: "nav nav-tabs",
+                  attrs: { id: "myTab", role: "tablist" }
+                },
+                [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _vm._l(_vm.categories, function(category) {
+                    return _c(
+                      "li",
+                      { key: category.id, staticClass: "nav-item" },
+                      [
                         _c(
                           "a",
                           {
                             staticClass: "nav-link",
                             attrs: {
-                              id: "nav-profile-tab",
+                              id: "profile-tab",
                               "data-toggle": "tab",
-                              href: "#nav-profile",
+                              href: "#profile",
                               role: "tab",
-                              "aria-controls": "nav-profile",
+                              "aria-controls": "profile",
                               "aria-selected": "false"
                             },
                             on: {
@@ -56468,65 +56482,56 @@ var render = function() {
                               }
                             }
                           },
-                          [
-                            _vm._v(
-                              "\n      " +
-                                _vm._s(category.category_name) +
-                                "\n    "
-                            )
-                          ]
+                          [_vm._v(_vm._s(category.category_name))]
                         )
-                      ])
-                    })
-                  ],
-                  2
-                )
-              ]),
+                      ]
+                    )
+                  })
+                ],
+                2
+              ),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "tab-content", attrs: { id: "nav-tabContent" } },
+                { staticClass: "tab-content", attrs: { id: "myTabContent" } },
                 [
                   _c(
                     "div",
                     {
                       staticClass: "tab-pane fade show active",
                       attrs: {
-                        id: "nav-home",
+                        id: "home",
                         role: "tabpanel",
-                        "aria-labelledby": "nav-home-tab"
+                        "aria-labelledby": "home-tab"
                       }
                     },
                     [
                       _c("div", { staticClass: "card-body" }, [
-                        _c("div", { staticClass: "col-md-12" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.searchTerm,
-                                expression: "searchTerm"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            staticStyle: { width: "70%" },
-                            attrs: {
-                              type: "text",
-                              id: "",
-                              placeholder: "Enter Phone to search"
-                            },
-                            domProps: { value: _vm.searchTerm },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.searchTerm = $event.target.value
-                              }
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.searchTerm,
+                              expression: "searchTerm"
                             }
-                          })
-                        ]),
+                          ],
+                          staticClass: "form-control",
+                          staticStyle: { width: "560px" },
+                          attrs: {
+                            type: "text",
+                            placeholder: "Search Product"
+                          },
+                          domProps: { value: _vm.searchTerm },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.searchTerm = $event.target.value
+                            }
+                          }
+                        }),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -56536,53 +56541,82 @@ var render = function() {
                               "div",
                               {
                                 key: product.id,
-                                staticClass: "col-md-3 col-lg-3 col-sm-6"
+                                staticClass: "col-lg-3 col-md-3 col-sm-6 col-6"
                               },
                               [
                                 _c(
-                                  "div",
+                                  "button",
                                   {
-                                    staticClass: "card",
-                                    staticStyle: { width: "8.5rem" }
+                                    staticClass: "btn btn-sm",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.AddToCart(product.id)
+                                      }
+                                    }
                                   },
                                   [
-                                    _c("img", {
-                                      staticClass: "card-img-top",
-                                      attrs: {
-                                        id: "emp_photo",
-                                        src: product.image,
-                                        alt: "Card image cap"
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "card-body" }, [
-                                      _c("h5", { staticClass: "card-title" }, [
-                                        _vm._v(_vm._s(product.product_name))
-                                      ]),
-                                      _vm._v(" "),
-                                      product.product_quantity >= 1
-                                        ? _c(
-                                            "span",
-                                            {
-                                              staticClass: "badge badge-success"
-                                            },
-                                            [
-                                              _vm._v(
-                                                "Available " +
-                                                  _vm._s(
-                                                    product.product_quantity
-                                                  )
-                                              )
-                                            ]
-                                          )
-                                        : _c(
-                                            "span",
-                                            {
-                                              staticClass: "badge badge-danger"
-                                            },
-                                            [_vm._v("Stock-Out")]
-                                          )
-                                    ])
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "card",
+                                        staticStyle: {
+                                          width: "8.5rem",
+                                          "margin-bottom": "5px"
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "card-img-top",
+                                          attrs: {
+                                            src: product.image,
+                                            id: "em_photo"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "card-body" },
+                                          [
+                                            _c(
+                                              "h6",
+                                              { staticClass: "card-title" },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(product.product_name)
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            product.product_quantity >= 1
+                                              ? _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "badge badge-success"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Available " +
+                                                        _vm._s(
+                                                          product.product_quantity
+                                                        ) +
+                                                        "  "
+                                                    )
+                                                  ]
+                                                )
+                                              : _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "badge badge-danger"
+                                                  },
+                                                  [_vm._v("Stock Out ")]
+                                                )
+                                          ]
+                                        )
+                                      ]
+                                    )
                                   ]
                                 )
                               ]
@@ -56599,41 +56633,38 @@ var render = function() {
                     {
                       staticClass: "tab-pane fade",
                       attrs: {
-                        id: "nav-profile",
+                        id: "profile",
                         role: "tabpanel",
-                        "aria-labelledby": "nav-profile-tab"
+                        "aria-labelledby": "profile-tab"
                       }
                     },
                     [
                       _c("div", { staticClass: "card-body" }, [
-                        _c("div", { staticClass: "col-md-12" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.searchTerm,
-                                expression: "searchTerm"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            staticStyle: { width: "70%" },
-                            attrs: {
-                              type: "text",
-                              id: "",
-                              placeholder: "Enter Phone to search"
-                            },
-                            domProps: { value: _vm.searchTerm },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.searchTerm = $event.target.value
-                              }
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.getsearchTerm,
+                              expression: "getsearchTerm"
                             }
-                          })
-                        ]),
+                          ],
+                          staticClass: "form-control",
+                          staticStyle: { width: "560px" },
+                          attrs: {
+                            type: "text",
+                            placeholder: "Search Product"
+                          },
+                          domProps: { value: _vm.getsearchTerm },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.getsearchTerm = $event.target.value
+                            }
+                          }
+                        }),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -56643,53 +56674,84 @@ var render = function() {
                               "div",
                               {
                                 key: getproduct.id,
-                                staticClass: "col-md-3 col-lg-3 col-sm-6"
+                                staticClass: "col-lg-3 col-md-3 col-sm-6 col-6"
                               },
                               [
                                 _c(
-                                  "div",
+                                  "button",
                                   {
-                                    staticClass: "card",
-                                    staticStyle: { width: "8.5rem" }
+                                    staticClass: "btn btn-sm",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.AddToCart(getproduct.id)
+                                      }
+                                    }
                                   },
                                   [
-                                    _c("img", {
-                                      staticClass: "card-img-top",
-                                      attrs: {
-                                        id: "emp_photo",
-                                        src: getproduct.image,
-                                        alt: "Card image cap"
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "card-body" }, [
-                                      _c("h5", { staticClass: "card-title" }, [
-                                        _vm._v(_vm._s(getproduct.product_name))
-                                      ]),
-                                      _vm._v(" "),
-                                      getproduct.product_quantity >= 1
-                                        ? _c(
-                                            "span",
-                                            {
-                                              staticClass: "badge badge-success"
-                                            },
-                                            [
-                                              _vm._v(
-                                                "Available " +
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "card",
+                                        staticStyle: {
+                                          width: "8.5rem",
+                                          "margin-bottom": "5px"
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "card-img-top",
+                                          attrs: {
+                                            src: getproduct.image,
+                                            id: "em_photo"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "card-body" },
+                                          [
+                                            _c(
+                                              "h6",
+                                              { staticClass: "card-title" },
+                                              [
+                                                _vm._v(
                                                   _vm._s(
-                                                    getproduct.product_quantity
+                                                    getproduct.product_name
                                                   )
-                                              )
-                                            ]
-                                          )
-                                        : _c(
-                                            "span",
-                                            {
-                                              staticClass: "badge badge-danger"
-                                            },
-                                            [_vm._v("Stock-Out")]
-                                          )
-                                    ])
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            getproduct.product_quantity >= 1
+                                              ? _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "badge badge-success"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Available " +
+                                                        _vm._s(
+                                                          getproduct.product_quantity
+                                                        ) +
+                                                        "  "
+                                                    )
+                                                  ]
+                                                )
+                                              : _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "badge badge-danger"
+                                                  },
+                                                  [_vm._v("Stock Out ")]
+                                                )
+                                          ]
+                                        )
+                                      ]
+                                    )
                                   ]
                                 )
                               ]
@@ -56745,23 +56807,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "card-header py-3 d-flex flex-row align-items-center justify-content-between"
-      },
-      [
-        _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-          _vm._v("Monthly Recap Report")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "table-responsive" }, [
       _c(
         "table",
@@ -56772,13 +56817,13 @@ var staticRenderFns = [
         [
           _c("thead", { staticClass: "thead-light" }, [
             _c("tr", [
-              _c("th", [_vm._v("Order ID")]),
+              _c("th", [_vm._v("Name")]),
               _vm._v(" "),
-              _c("th", [_vm._v("Customer")]),
+              _c("th", [_vm._v("Quantity")]),
               _vm._v(" "),
-              _c("th", [_vm._v("Item")]),
+              _c("th", [_vm._v("Unit")]),
               _vm._v(" "),
-              _c("th", [_vm._v("Action")])
+              _c("th", [_vm._v("Total")])
             ])
           ]),
           _vm._v(" "),
@@ -56794,10 +56839,10 @@ var staticRenderFns = [
                 _c(
                   "a",
                   {
-                    staticClass: "btn btn-sm btn-primary",
+                    staticClass: "btn btn-sm btn-danger",
                     attrs: { href: "#" }
                   },
-                  [_vm._v("Detail")]
+                  [_vm._v("Remove")]
                 )
               ])
             ]),
@@ -56813,10 +56858,10 @@ var staticRenderFns = [
                 _c(
                   "a",
                   {
-                    staticClass: "btn btn-sm btn-primary",
+                    staticClass: "btn btn-sm btn-danger",
                     attrs: { href: "#" }
                   },
-                  [_vm._v("Detail")]
+                  [_vm._v("Remove")]
                 )
               ])
             ]),
@@ -56832,10 +56877,10 @@ var staticRenderFns = [
                 _c(
                   "a",
                   {
-                    staticClass: "btn btn-sm btn-primary",
+                    staticClass: "btn btn-sm btn-danger",
                     attrs: { href: "#" }
                   },
-                  [_vm._v("Detail")]
+                  [_vm._v("Remove")]
                 )
               ])
             ])
@@ -56855,7 +56900,10 @@ var staticRenderFns = [
           staticClass:
             "list-group-item d-flex justify-content-between align-items-center"
         },
-        [_vm._v("Total Quantity:\n  "), _c("strong", [_vm._v("344$")])]
+        [
+          _vm._v("Total Quantity:\n                  "),
+          _c("strong", [_vm._v("344$")])
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -56864,7 +56912,10 @@ var staticRenderFns = [
           staticClass:
             "list-group-item d-flex justify-content-between align-items-center"
         },
-        [_vm._v("Sub Total:\n  "), _c("strong", [_vm._v("344 $")])]
+        [
+          _vm._v("Sub Total:\n                  "),
+          _c("strong", [_vm._v("344 $")])
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -56873,7 +56924,7 @@ var staticRenderFns = [
           staticClass:
             "list-group-item d-flex justify-content-between align-items-center"
         },
-        [_vm._v("Vat:\n  "), _c("strong", [_vm._v("56 %")])]
+        [_vm._v("Vat:\n                  "), _c("strong", [_vm._v("56 %")])]
       ),
       _vm._v(" "),
       _c(
@@ -56882,7 +56933,10 @@ var staticRenderFns = [
           staticClass:
             "list-group-item d-flex justify-content-between align-items-center"
         },
-        [_vm._v("Total :\n  "), _c("strong", [_vm._v("5587 $")])]
+        [
+          _vm._v("Total :\n                  "),
+          _c("strong", [_vm._v("5587 $")])
+        ]
       )
     ])
   },
@@ -56902,6 +56956,28 @@ var staticRenderFns = [
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link active",
+          attrs: {
+            id: "home-tab",
+            "data-toggle": "tab",
+            href: "#home",
+            role: "tab",
+            "aria-controls": "home",
+            "aria-selected": "true"
+          }
+        },
+        [_vm._v("All Product ")]
+      )
+    ])
   }
 ]
 render._withStripped = true

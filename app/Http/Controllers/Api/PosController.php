@@ -8,10 +8,10 @@ use App\Models\Product;
 
 class PosController extends Controller
 {
-    public function subProducts($id)
+    public function GetProduct($id)
     {
         $sub_products = Product::where('category_id', $id)->get();
 
         return response()->json($sub_products);
     }
-}
+} 

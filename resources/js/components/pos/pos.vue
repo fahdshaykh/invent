@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -10,28 +9,22 @@
               <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
             </ol>
           </div>
-
           <div class="row mb-3">
-
             <!-- Area Chart -->
             <div class="col-xl-5 col-lg-5">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Monthly Recap Report</h6>
-
+                  <a class="btn btn-sm btn-info"><font color="#ffffff">Add Customer</font></a>     
                 </div>
-
-
-
-
                 <div class="table-responsive">
                   <table class="table align-items-center table-flush" style="font-size: 12px">
                     <thead class="thead-light">
                       <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Item</th>
-                        <th>Action</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Total</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -39,83 +32,63 @@
                         <td><a href="#">RA0449</a></td>
                         <td>Udin Wayang</td>
                         <td>Nasi Padang</td>
-                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                        <td><a href="#" class="btn btn-sm btn-danger">Remove</a></td>
                       </tr>
                       <tr>
                         <td><a href="#">RA0449</a></td>
                         <td>Udin Wayang</td>
                         <td>Nasi Padang</td>
-                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                        <td><a href="#" class="btn btn-sm btn-danger">Remove</a></td>
                       </tr>
                       <tr>
                         <td><a href="#">RA0449</a></td>
                         <td>Udin Wayang</td>
                         <td>Nasi Padang</td>
-                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+                        <td><a href="#" class="btn btn-sm btn-danger">Remove</a></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <div class="card-footer">
-
-
-
                     <ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center">Total Quantity:
-  <strong>344$</strong>
-   </li>
-     <li class="list-group-item d-flex justify-content-between align-items-center">Sub Total:
-  <strong>344 $</strong>
-   </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">Total Quantity:
+                      <strong>344$</strong>
+                      </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">Sub Total:
+                      <strong>344 $</strong>
+                      </li>
 
-     <li class="list-group-item d-flex justify-content-between align-items-center">Vat:
-  <strong>56 %</strong>
-   </li>
-     <li class="list-group-item d-flex justify-content-between align-items-center">Total :
-  <strong>5587 $</strong>
-   </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">Vat:
+                      <strong>56 %</strong>
+                      </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">Total :
+                      <strong>5587 $</strong>
+                      </li>
+                    </ul>
+                    <br>
+                  <form @submit.prevent="orderdone">
+                      <label>Customer Name</label>
+                      <select class="form-control" v-model="customer_id">
+                        <option :value="customer.id" v-for="customer in customers" :key="customer.id">{{customer.name }} </option>
+                      </select>
 
-            </ul>
+                      <label>Pay</label>
+                      <input type="text" class="form-control" required="" v-model="pay">
 
-            <br>
+                      <label>Due</label>
+                      <input type="text" class="form-control" required="" v-model="due">
 
-        <form @submit.prevent="orderdone">
-          <label>Customer Name</label>
-          <select class="form-control" v-model="customer_id">
-         <option :value="customer.id" v-for="customer in customers" :key="customer.id">{{customer.name }} </option>
+                      <label>Pay By</label>
+                      <select class="form-control" v-model="payby">
+                            <option value="HandCash">Hand Cash </option>
+                            <option value="Cheaque">Cheaque </option>
+                            <option value="GiftCard">Gift Card </option>
+                      </select>
 
-           </select>
-
-           <label>Pay</label>
-           <input type="text" class="form-control" required="" v-model="pay">
-
-           <label>Due</label>
-           <input type="text" class="form-control" required="" v-model="due">
-
-          <label>Pay By</label>
-          <select class="form-control" v-model="payby">
-                 <option value="HandCash">Hand Cash </option>
-                 <option value="Cheaque">Cheaque </option>
-                 <option value="GiftCard">Gift Card </option>
-           </select>
-
-           <br>
-           <button type="submit" class="btn btn-success">Submit</button>
-
-        </form>
-
-
-
-
+                      <br>
+                      <button type="submit" class="btn btn-success">Submit</button>
+                  </form>
                 </div>
-
-
-
-
-
-
-
-
               </div>
             </div>
             <!-- Pie Chart -->
@@ -123,85 +96,86 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Products Sold</h6>
-
                 </div>
+               
+               
+                 <!--  Category Wise Product -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All Product </a>
+                  </li>
+                  
+
+                  <li class="nav-item" v-for="category in categories" :key="category.id">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" @click="subProduct(category.id)" >{{ category.category_name }}</a>
+                  </li>
 
 
+                  
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
+                    <div class="card-body">
+                    <input type="text" v-model="searchTerm" class="form-control" style="width: 560px;" placeholder="Search Product">
 
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-    <li v-for="category in categories" :key="category.id">
-    <a @click="subProduct(category.id)" class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
-      {{ category.category_name }}
-    </a>
-    </li>
-  
-  </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-      <div class="card-body">
-          <div class="col-md-12">
-              <input type="text" v-model="searchTerm" id="" class="form-control" placeholder="Enter Phone to search" style="width:70%">
-          </div>
-
-          <div class="row">
-              <div class="col-md-3 col-lg-3 col-sm-6" v-for="product in filtersearch" :key="product.id">
-                  <div class="card" style="width: 8.5rem;">
-                      <img class="card-img-top" id="emp_photo" :src="product.image" alt="Card image cap">
-                      <div class="card-body">
-
-                          <h5 class="card-title">{{ product.product_name }}</h5>
-                          <span v-if="product.product_quantity >= 1" class="badge badge-success">Available {{product.product_quantity}}</span>
-
-                          <span v-else class="badge badge-danger">Stock-Out</span>
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-6" v-for="product in filtersearch" :key="product.id">
+                            <button class="btn btn-sm" @click.prevent="AddToCart(product.id)">
+                            <div class="card" style="width: 8.5rem; margin-bottom: 5px;">
+                              <img :src="product.image" id="em_photo" class="card-img-top">
+                              <div class="card-body">
+                                <h6 class="card-title">{{ product.product_name }}</h6>
+                        <span class="badge badge-success" v-if="product.product_quantity  >= 1 ">Available {{ product.product_quantity }}  </span> 
+                        <span class="badge badge-danger" v-else=" ">Stock Out </span> 
+                                
+                              </div>
+                            </div></button>
+                          
+                        </div>        
                       </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-    
-    <div class="card-body">
-          <div class="col-md-12">
-              <input type="text" v-model="searchTerm" id="" class="form-control" placeholder="Enter Phone to search" style="width:70%">
-          </div>
 
-          <div class="row">
-              <div class="col-md-3 col-lg-3 col-sm-6" v-for="getproduct in getfiltersearch" :key="getproduct.id">
-                  <div class="card" style="width: 8.5rem;">
-                      <img class="card-img-top" id="emp_photo" :src="getproduct.image" alt="Card image cap">
+                    </div>
+
+
+                  </div>  <!--  End TBAS HOME -->
+
+
+
+                
+
+                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
                       <div class="card-body">
+                    
+                        <input type="text" v-model="getsearchTerm" class="form-control" style="width: 560px;" placeholder="Search Product">
 
-                          <h5 class="card-title">{{ getproduct.product_name }}</h5>
-                          <span v-if="getproduct.product_quantity >= 1" class="badge badge-success">Available {{getproduct.product_quantity}}</span>
-
-                          <span v-else class="badge badge-danger">Stock-Out</span>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-6" v-for="getproduct in getfiltersearch" :key="getproduct.id">
+                              <button class="btn btn-sm" @click.prevent="AddToCart(getproduct.id)">
+                                  <div class="card" style="width: 8.5rem; margin-bottom: 5px;">
+                                      <img :src="getproduct.image" id="em_photo" class="card-img-top">
+                                      <div class="card-body">
+                                        <h6 class="card-title">{{ getproduct.product_name }}</h6>
+                                        <span class="badge badge-success" v-if="getproduct.product_quantity  >= 1 ">Available {{ getproduct.product_quantity }}  </span> 
+                                        <span class="badge badge-danger" v-else=" ">Stock Out </span> 
+                                        
+                                      </div>
+                                  </div>
+                              </button>
+                          </div>        
                       </div>
+                    </div>
                   </div>
-              </div>
-          </div>
-      </div>
-      
-  </div>
-</div>
-
-
-
-
+                </div>
+                    <!-- End Category Wise Product -->
+                </div>
               </div>
             </div>
-
           </div>
           <!--Row-->
-
         </div>
         <!---Container Fluid-->
-
-    </div>
 </template>
 
 <script type="text/javascript">
@@ -231,9 +205,9 @@ export default {
             });
         },
         getfiltersearch(){
-            return this.getproducts.filter(product => {
+            return this.getproducts.filter(getproduct => {
                 return getproduct.product_name.match(this.searchTerm)
-            });
+          });
         }
     },
     methods: {
