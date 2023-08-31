@@ -35,7 +35,8 @@
                           <div class="row">
                             <input class="mb-1" type="text" name="" id="" :value="item.product_quantity" style="width: 93%;">
                             <button class="btn btn-success" @click.prevent="incrementItem(item.id)"> + </button>
-                            <button class="btn btn-danger" @click.prevent="decrementItem(item.id)"> - </button>
+                            <button class="btn btn-danger" @click.prevent="decrementItem(item.id)" v-if="item.product_quantity >=2"> - </button>
+                            <button class="btn btn-danger" v-else="" disabled=""> - </button>
                           </div>
                         </td>
                         <td>{{ item.product_price }}</td>
@@ -48,17 +49,17 @@
                 <div class="card-footer">
                     <ul class="list-group">
                       <li class="list-group-item d-flex justify-content-between align-items-center">Total Quantity:
-                      <strong>344$</strong>
+                      <strong>{{ qty }}</strong>
                       </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">Sub Total:
-                      <strong>344 $</strong>
+                      <strong>{{ subtotal }} $</strong>
                       </li>
 
                       <li class="list-group-item d-flex justify-content-between align-items-center">Vat:
-                      <strong>56 %</strong>
+                      <strong>{{ vats.vat }} %</strong>
                       </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">Total :
-                        <strong>5587 $</strong>
+                        <strong>{{ subtotal * vats.vat / 100 + subtotal }} $</strong>
                       </li>
                     </ul>
                     <br>
@@ -185,6 +186,7 @@ export default {
       this.allCategory();
       this.allCustomer();
       this.cartProduct();
+      this.vatsData();
       Reload.$on('AfterAdd', () => {
         this.cartProduct();
       })
@@ -196,7 +198,8 @@ export default {
           categories:'',
           getproducts: [],
           customers: [],
-          searchTerm: ''
+          searchTerm: '',
+          vats: ''
         }
     },
     computed: {
@@ -209,6 +212,21 @@ export default {
             return this.getproducts.filter(getproduct => {
                 return getproduct.product_name.match(this.searchTerm)
           });
+        },
+        qty() {
+          let sum = 0;
+
+          for(let i = 0; i < this.cart.length; i++) {
+            sum += (parseFloat(this.cart[i].product_quantity))
+          }
+          return sum;
+        },
+        subtotal() {
+          let sum = 0;
+          for(let i = 0; i < this.cart.length; i++) {
+            sum += (parseFloat(this.cart[i].product_quantity) * parseFloat(this.cart[i].product_price))
+          }
+          return sum;
         }
     },
     methods: {
@@ -242,6 +260,11 @@ export default {
             Reload.$emit('AfterAdd');
             Notification.cart_success()
           })
+          .catch()
+      },
+      vatsData() {
+        axios.get('/api/vats')
+          .then(({data}) => (this.vats = data))
           .catch()
       },
       cartProduct() {

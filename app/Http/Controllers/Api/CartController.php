@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Extra;
 use App\Models\Pos;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -35,7 +36,6 @@ class CartController extends Controller
  
     }
 
-
     public function cartProduct() 
     {
         $cart = Pos::get();
@@ -43,15 +43,12 @@ class CartController extends Controller
         return response()->json($cart);
     }
 
-
-
     public function removeToCart($id)
     {
         Pos::where('id',$id)->delete();
         return response('Done');
 
     }
-
 
     public function incrementItem($id)
     {
@@ -64,7 +61,6 @@ class CartController extends Controller
         return response('Done');
     }
 
-
     public function decrementItem($id)
     {
         $quantity = Pos::where('id',$id)->decrement('product_quantity');
@@ -74,6 +70,13 @@ class CartController extends Controller
         Pos::where('id', $id)->update(['sub_total'=> $subtotal]);
 
         return response('Done');
+    }
+
+    public function vat()
+    {
+        $vats = Extra::first();
+
+        return response()->json($vats);
     }
 
 }
