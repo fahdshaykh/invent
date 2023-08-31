@@ -30,3 +30,10 @@ Route::get('/edit/salary/{id}', 'App\Http\Controllers\Api\SalaryController@edit'
 Route::post('/update/salary/{id}', 'App\Http\Controllers\Api\SalaryController@update');
 Route::post('/stock-update/{id}', 'App\Http\Controllers\Api\ProductController@stockUpdate');
 Route::get('/getting/product/{id}', 'App\Http\Controllers\Api\PosController@GetProduct');
+
+Route::get('/addToCart/{id}', 'App\Http\Controllers\Api\CartController@addToCart');
+Route::get('/removeToCart/{id}', 'App\Http\Controllers\Api\CartController@removeToCart');
+Route::get('/incrementToCart/{id}', 'App\Http\Controllers\Api\CartController@incrementItem');
+Route::get('/decrementToCart/{id}', 'App\Http\Controllers\Api\CartController@decrementItem');
+Route::get('/cart/product', 'App\Http\Controllers\Api\CartController@cartProduct');
+

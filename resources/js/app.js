@@ -40,6 +40,8 @@ window.Toast = Toast;
 
 //toaster end
 
+window.Reload = new Vue();
+
 const router = new VueRouter({
     routes,
     mode: 'history'

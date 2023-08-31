@@ -49,6 +49,16 @@ class Notification {
         }).show();
     }
 
+    cart_success()
+    {
+        new Noty({
+            type: 'success',
+            layout: 'bottomCenter',
+            text: 'Successfully Added',
+            timeout: 3000,
+        }).show();
+    }
+
 }
 
 export default Notification = new Notification();

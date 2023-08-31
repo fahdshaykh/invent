@@ -14,4 +14,4 @@ class PosController extends Controller
 
         return response()->json($sub_products);
     }
-} 
+}

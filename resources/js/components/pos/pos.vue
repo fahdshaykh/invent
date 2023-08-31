@@ -25,26 +25,22 @@
                         <th>Quantity</th>
                         <th>Unit</th>
                         <th>Total</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td><a href="#">RA0449</a></td>
-                        <td>Udin Wayang</td>
-                        <td>Nasi Padang</td>
-                        <td><a href="#" class="btn btn-sm btn-danger">Remove</a></td>
-                      </tr>
-                      <tr>
-                        <td><a href="#">RA0449</a></td>
-                        <td>Udin Wayang</td>
-                        <td>Nasi Padang</td>
-                        <td><a href="#" class="btn btn-sm btn-danger">Remove</a></td>
-                      </tr>
-                      <tr>
-                        <td><a href="#">RA0449</a></td>
-                        <td>Udin Wayang</td>
-                        <td>Nasi Padang</td>
-                        <td><a href="#" class="btn btn-sm btn-danger">Remove</a></td>
+                      <tr v-for="item in cart" :key="item.id">
+                        <td>{{ item.product_name }}</td>
+                        <td>
+                          <div class="row">
+                            <input class="mb-1" type="text" name="" id="" :value="item.product_quantity" style="width: 93%;">
+                            <button class="btn btn-success" @click.prevent="incrementItem(item.id)"> + </button>
+                            <button class="btn btn-danger" @click.prevent="decrementItem(item.id)"> - </button>
+                          </div>
+                        </td>
+                        <td>{{ item.product_price }}</td>
+                        <td>{{ item.sub_total }}</td>
+                        <td><a @click="removeItem(item.id)" class="btn btn-sm btn-danger" style="color: white;">X</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -58,11 +54,11 @@
                       <strong>344 $</strong>
                       </li>
 
-                        <li class="list-group-item d-flex justify-content-between align-items-center">Vat:
+                      <li class="list-group-item d-flex justify-content-between align-items-center">Vat:
                       <strong>56 %</strong>
                       </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">Total :
-                      <strong>5587 $</strong>
+                        <strong>5587 $</strong>
                       </li>
                     </ul>
                     <br>
@@ -181,57 +177,99 @@
 <script type="text/javascript">
 
 export default {
-    created(){
-        if(!User.loggedIn()){
-            this.$router.push({name: '/'})
-        }
-        this.allProduct();
-        this.allCategory();
-        this.allCustomer();
+    created() {
+      if(!User.loggedIn()) {
+          this.$router.push({name: '/'})
+      }
+      this.allProduct();
+      this.allCategory();
+      this.allCustomer();
+      this.cartProduct();
+      Reload.$on('AfterAdd', () => {
+        this.cartProduct();
+      })
     },
-    data(){
+    data() {
         return {
-            products: [],
-            categories:'',
-            getproducts: [],
-            customers: [],
-            searchTerm: ''
+          cart: [],
+          products: [],
+          categories:'',
+          getproducts: [],
+          customers: [],
+          searchTerm: ''
         }
     },
     computed: {
-        filtersearch(){
+        filtersearch() {
             return this.products.filter(product => {
                 return product.product_name.match(this.searchTerm)
             });
         },
-        getfiltersearch(){
+        getfiltersearch() {
             return this.getproducts.filter(getproduct => {
                 return getproduct.product_name.match(this.searchTerm)
           });
         }
     },
     methods: {
-        allProduct(){
-            axios.get('/api/product')
-            .then(({data}) => (this.products = data))
-            .catch()
-        },
-        allCategory(){
-            axios.get('/api/category')
-            .then(({data}) => (this.categories = data))
-            .catch()
-        },
-        subProduct(id){
-            axios.get('/api/getting/product/'+id)
-            .then(({data}) => (this.getproducts = data))
-            .catch()
-        },
-        allCustomer(){
-            axios.get('/api/customer')
-            .then(({data}) => (this.customers = data))
-            .catch()
-        },
-    }
+      AddToCart(id) {
+        axios.get('/api/addToCart/'+id)
+          .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.cart_success()
+          })
+          .catch()
+      },
+      removeItem(id) {
+        axios.get('/api/removeToCart/'+id)
+          .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.cart_success()
+          })
+          .catch()
+      },
+      incrementItem(id) {
+        axios.get('/api/incrementToCart/'+id)
+          .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.cart_success()
+          })
+          .catch()
+      },
+      decrementItem(id) {
+        axios.get('/api/decrementToCart/'+id)
+          .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.cart_success()
+          })
+          .catch()
+      },
+      cartProduct() {
+        axios.get('/api/cart/product')
+          .then(({data}) => (this.cart = data))
+          .catch()
+      },
+      allProduct() {
+          axios.get('/api/product')
+          .then(({data}) => (this.products = data))
+          .catch()
+      },
+      allCategory() {
+          axios.get('/api/category')
+          .then(({data}) => (this.categories = data))
+          .catch()
+      },
+      subProduct(id) {
+          axios.get('/api/getting/product/'+id)
+          .then(({data}) => (this.getproducts = data))
+          .catch()
+      },
+      allCustomer() {
+          axios.get('/api/customer')
+          .then(({data}) => (this.customers = data))
+          .catch()
+      },
+  }
 }
 
 </script>
