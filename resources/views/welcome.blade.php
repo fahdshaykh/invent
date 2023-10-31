@@ -112,6 +112,7 @@
           </div>
         </div>
       </li>
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable6" aria-expanded="true"
           aria-controls="collapseTable6">
@@ -141,38 +142,27 @@
         </div>
       </li>
       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable8" aria-expanded="true"
+          aria-controls="collapseTable8">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Order</span>
+        </a>
+        <div id="collapseTable8" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Order</h6>
+            <router-link class="collapse-item" to="/order">Today Order</router-link>
+            <router-link class="collapse-item" to="/searchorder">Search</router-link>
+          </div>
+        </div>
+      </li>
+      {{-- <li class="nav-item">
         <router-link class="nav-link" to="/stock">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Stock</span>
         </a>
-      </li>
-      <hr class="sidebar-divider">
-      <div class="sidebar-heading">
-        Examples
-      </div>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
-          aria-controls="collapsePage">
-          <i class="fas fa-fw fa-columns"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Example Pages</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span>
-        </a>
-      </li>
-      <hr class="sidebar-divider">
+      </li> --}}
+      {{-- <hr class="sidebar-divider"> --}}
+
       <div class="version" id="version-ruangadmin"></div>
     </ul>
     </nav>

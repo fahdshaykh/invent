@@ -37,4 +37,20 @@ Route::get('/incrementToCart/{id}', 'App\Http\Controllers\Api\CartController@inc
 Route::get('/decrementToCart/{id}', 'App\Http\Controllers\Api\CartController@decrementItem');
 Route::get('/cart/product', 'App\Http\Controllers\Api\CartController@cartProduct');
 Route::get('/vats', 'App\Http\Controllers\Api\CartController@vat');
+Route::post('/orderdone', 'App\Http\Controllers\Api\PosController@orderdone');
 
+// Order Route
+Route::get('/orders', 'App\Http\Controllers\Api\OrderController@TodayOrder');
+Route::get('/order/details/{id}', 'App\Http\Controllers\Api\OrderController@OrderDetails');
+Route::get('/order/orderdetails/{id}', 'App\Http\Controllers\Api\OrderController@OrderDetailsAll');
+// Route::post('/search/order', 'App\Http\Controllers\Api\PosController@SearchOrderDate');
+
+Route::Post('/search/order', 'App\Http\Controllers\Api\PosController@SearchOrderDate');
+
+// Admin Dashboard Route
+
+Route::Get('/today/sell', 'App\Http\Controllers\Api\PosController@TodaySell');
+Route::Get('/today/income', 'App\Http\Controllers\Api\PosController@TodayIncome');
+Route::Get('/today/due', 'App\Http\Controllers\Api\PosController@TodayDue');
+Route::Get('/today/expense', 'App\Http\Controllers\Api\PosController@TodayExpense');
+Route::Get('/today/stockout', 'App\Http\Controllers\Api\PosController@Stockout');

@@ -193,6 +193,10 @@ export default {
     },
     data() {
         return {
+          customer_id: '',
+          pay: '',
+          due: '',
+          payby: '',
           cart: [],
           products: [],
           categories:'',
@@ -266,6 +270,15 @@ export default {
         axios.get('/api/vats')
           .then(({data}) => (this.vats = data))
           .catch()
+      },
+      orderdone() {
+        let total = this.subtotal*this.vats.vat / 100 + this.subtotal;
+        var data = {qty:this.qty, subtotal: this.subtotal, customer_id: this.customer_id, payby: this.payby, due:this.due, pay:this.pay, vat:this.vats.vat, total:total}
+        axios.post('/api/orderdone',data)
+       .then(() => {
+          Notification.success()
+         this.$router.push({name: 'home'})
+       }) 
       },
       cartProduct() {
         axios.get('/api/cart/product')
